@@ -11,7 +11,7 @@ You can install this library via Bower.
 $ bower install platanus-ionic-contact-picker
 ```
 
-Finally, include the JS file in your HTML and the `PlContactPicker` dependency in your Angular app.
+Finally, include the JS file in your HTML and the `platanus.contactPicker` dependency in your Angular app.
 
 ```javascript
 angular.module('yourApp', ['PlContactPicker']);
@@ -27,7 +27,8 @@ var myContactPicker = contactPicker.open({
   searchPlaceholder: 'type here...',
   selected: function(contact){
     console.log('Selected ',contact);
-  }
+  },
+  contacts:[{ name:'Jhon Snow' }]
 });
 
 $timeout(function(){
@@ -35,6 +36,9 @@ $timeout(function(){
 } ,3000);
 
 ```
+
+Note that if no contacts are passed the service attempts to connect
+to the phone using ngCordova's contact plugin.
 
 ## Default look
 ![](http://i.imgur.com/HAb5z8A.gif)

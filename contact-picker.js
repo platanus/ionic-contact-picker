@@ -69,12 +69,11 @@ var CONTACT_PICKER_TPL =
  *
  */
 
-
 angular
-  .module('ionic.utils',[])
+  .module('platanus.contactPicker',['platanus.phoneContacts'])
   .factory('contactPicker', contactPicker);
 
-function contactPicker(IONIC_BACK_PRIORITY, $timeout, $ionicBody, $ionicPlatform, $ionicBackdrop, $compile, $q, $ionicTemplateLoader, $rootScope, $ionicModal) {
+function contactPicker(IONIC_BACK_PRIORITY, $timeout, $ionicBody, $ionicPlatform, $ionicBackdrop, $compile, $q, $ionicTemplateLoader, $rootScope, $ionicModal,PhoneContacts) {
 
   var self = {};
 
@@ -129,6 +128,17 @@ function contactPicker(IONIC_BACK_PRIORITY, $timeout, $ionicBody, $ionicPlatform
     scope.placeholder = options.placeholder;
     scope.searchText = options.searchText;
     scope.cancelText = options.cancelText;
+
+    // if no contacts were passed connect to phone
+    if(options.contacts.length === 0) {
+      PhoneContacts.connect({}, function(contacts,err){
+        if(err)
+          console.log(err);
+
+        scope.contacts = contacts;
+        scope.$digest();
+      });
+    }
 
     var modalOptions = {
       animation: options.animation || 'slide-in-up',
@@ -197,6 +207,6 @@ function contactPicker(IONIC_BACK_PRIORITY, $timeout, $ionicBody, $ionicPlatform
 }
 
 // annotate dependencies
-contactPicker.$inject = ['IONIC_BACK_PRIORITY', '$timeout', '$ionicBody', '$ionicPlatform', '$ionicBackdrop', '$compile', '$q', '$ionicTemplateLoader', '$rootScope','$ionicModal'];
+contactPicker.$inject = ['IONIC_BACK_PRIORITY', '$timeout', '$ionicBody', '$ionicPlatform', '$ionicBackdrop', '$compile', '$q', '$ionicTemplateLoader', '$rootScope','$ionicModal','PhoneContacts'];
 
 })();
