@@ -3,6 +3,12 @@ Platanus Ionic Contact Picker
 
 Contact picker service.
 
+## Platanus Ionic Contact Picker is no longer maintained.
+
+- We will leave the Issues open as a discussion forum only.
+- We do not guarantee a response from us in the Issues.
+- We are no longer accepting pull requests.
+
 ## Installation
 
 You can install this library via Bower.
